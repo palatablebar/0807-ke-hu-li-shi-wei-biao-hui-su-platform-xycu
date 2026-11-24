@@ -1,0 +1,10 @@
+record,case,kind,start_day,end_day,segment,cents,note
+000101,0001,version,5,30,2,0,交接明细
+000102,0001,transaction,5,0,0,101,复核底稿
+000103,0001,version,0,5,1,0,补录记录
+000104,0001,transaction,4,0,0,29,已对照来源
+000105,0001,expected,0,0,0,130,"来源
+留存"
+000201,0002,version,0,8,3,0,交接明细
+000202,0002,transaction,0,0,0,25,复核底稿
+000203,0002,expected,0,0,0,25,补录记录
