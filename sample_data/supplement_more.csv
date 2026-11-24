@@ -1,0 +1,4 @@
+record,case,kind,start_day,end_day,segment,cents,note
+100301,1003,version,0,15,1,0,新增客户基线
+100302,1003,transaction,6,0,0,60,新增客户交易
+100303,1003,expected,0,0,0,60,月底对账

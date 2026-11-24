@@ -17,6 +17,9 @@ LABELS = {
     "UNRESOLVED_ISSUES": "存在待处理差异",
     "SAMPLE_UNKNOWN": "样例不存在",
     "STAGE_UNKNOWN": "处理阶段不存在",
+    "RELEASE_NOT_FOUND": "发布版本不存在",
+    "RELEASE_EMPTY": "没有可发布的记录",
+    "TRIAL_STALE": "基线已变化，请重新试算",
 }
 
 
@@ -24,10 +27,10 @@ def response(error):
     code = error.code
     status = (
         404
-        if code in {"RUN_NOT_FOUND", "SAMPLE_UNKNOWN", "STAGE_UNKNOWN"}
+        if code in {"RUN_NOT_FOUND", "SAMPLE_UNKNOWN", "STAGE_UNKNOWN", "RELEASE_NOT_FOUND"}
         else (
             409
-            if code in {"STALE_REVIEW", "RUN_FINALIZED", "UNRESOLVED_ISSUES"}
+            if code in {"STALE_REVIEW", "RUN_FINALIZED", "UNRESOLVED_ISSUES", "TRIAL_STALE"}
             else 413 if code == "FILE_TOO_LARGE" else 422
         )
     )

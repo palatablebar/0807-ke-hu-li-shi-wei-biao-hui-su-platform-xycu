@@ -1,8 +1,10 @@
 export async function request(path, options) {
   const response = await fetch(path, options);
   if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || `请求失败 · ${response.status}`);
+    const body = await response.json().catch(() => ({}));
+    const error = new Error(body.message || `请求失败 · ${response.status}`);
+    error.code = body.code;
+    throw error;
   }
   return response.json();
 }

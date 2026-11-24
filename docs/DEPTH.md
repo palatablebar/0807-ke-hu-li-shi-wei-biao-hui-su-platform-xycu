@@ -13,6 +13,7 @@
 | M5 运行对账 | 对照输入、采信和隔离行 | `POST /api/stages/balance` | `app/modules/reconcile.py` | `tests/test_reconcile.py` |
 | M6 批次复核 | 执行批次并签发或暂缓 | `POST /api/runs、PATCH /api/runs/<id>` | `app/review/service.py` | `tests/test_review.py` |
 | M7 证据交付 | 下载复核清单 | `GET /api/runs/<id>/evidence` | `app/evidence/render.py` | `tests/test_evidence.py` |
+| M8 补录试算与发布 | 试算覆盖变化并发布版本 | `POST /api/releases/trial、POST /api/releases` | `app/release/service.py` | `tests/test_release.py` |
 
 ## 输入陷阱
 
@@ -29,9 +30,14 @@
 | TRAP-16 | 引号未闭合时拒收文件 | `app/intake/reader.py` | `tests/test_intake.py::test_unclosed_quote_invalidates_source` |
 | TRAP-18 | 区分空文件、全空白和仅表头 | `app/intake/reader.py` | `tests/test_intake.py::test_empty_states_have_distinct_causes` |
 | TRAP-26 | 拒绝旧版本复核 | `app/review/store.py` | `tests/test_review.py::test_review_optimistic_lock` |
+| TRAP-27 | 内容相同重跑不得新增版本 | `app/review/store.py` | `tests/test_release.py::test_identical_content_never_adds_version` |
+| TRAP-28 | 试算与发布同源，基线变化拒发 | `app/release/service.py` | `tests/test_release.py::test_publish_requires_current_trial_snapshot` |
+| TRAP-29 | 发布失败保留旧版及证据 | `app/release/service.py` | `tests/test_release.py::test_failed_publish_preserves_previous_release_and_evidence` |
 
 ## 领域反例
 
 生效范围左闭右开。客户同一时段只允许一个生效版本。无法命中的交易单列明细且禁止发布，保留已经关联的金额。
+
+补录发布前重算整条客户时间线：版本区间之间的空洞为断档，区间相交为重叠，交易时点未命中任何区间为未关联交易；任一存在时版本保持待复核并列出记录键。已发布基线优先于补录行，同键异内容按 BASELINE_CONFLICT 隔离。版本号按合并内容寻址，已签发批次与已发布版本原样留存供追责。
 
 逐组预期结论见 `tests/test_policy.py`，计算过程证据见 `tests/test_calculate.py`。

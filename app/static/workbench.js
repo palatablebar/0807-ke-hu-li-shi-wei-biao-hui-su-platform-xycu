@@ -1,6 +1,7 @@
 import {request} from './client.js';
 import {snapshot, history} from './view.js';
 import {visualize} from './plots.js';
+import {initRelease} from './release.js';
 
 const form = document.querySelector('#source');
 const file = document.querySelector('#file');
@@ -104,3 +105,4 @@ detail.addEventListener('submit',event=>{
   });
 });
 preview(stage);
+initRelease();

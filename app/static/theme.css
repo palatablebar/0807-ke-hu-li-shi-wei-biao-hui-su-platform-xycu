@@ -6,7 +6,7 @@
   color-scheme:dark; }
 * {box-sizing:border-box} [hidden] {display:none!important}
 body.graph {margin:0;background:var(--bg);color:var(--ink);font:var(--size)/1.55 var(--font-ui)}
-.graph .desk {display:grid;grid-template-areas:"mast mast mast" "stages source source" "stages kpis kpis" "stages chart chart" "stages results inspection" "stages archive archive" "statusbar statusbar statusbar";grid-template-columns:190px 1.55fr 1fr;gap:var(--gap);margin:auto;padding:clamp(14px,3vw,42px);max-width:1578px}
+.graph .desk {display:grid;grid-template-areas:"mast mast mast" "stages source source" "stages kpis kpis" "stages chart chart" "stages results inspection" "stages archive archive" "stages release release" "statusbar statusbar statusbar";grid-template-columns:190px 1.55fr 1fr;gap:var(--gap);margin:auto;padding:clamp(14px,3vw,42px);max-width:1578px}
 .graph .mast {grid-area:mast;background:var(--surface);padding:var(--pad);min-width:0}
 .graph .mast h1 {font:700 clamp(26px,4vw,59px)/1.1 var(--font-display);margin:0;overflow-wrap:anywhere}
 .graph .role {color:var(--accent);margin:0 0 9px;font-weight:700}
@@ -24,14 +24,14 @@ body.graph {margin:0;background:var(--bg);color:var(--ink);font:var(--size)/1.55
 .graph .metric {background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:var(--pad);display:grid;align-content:center}
 .graph .metric strong {font:600 clamp(22px,4vw,48px)/1.05 var(--font-num);font-variant-numeric:tabular-nums}
 .graph .panel {background:var(--surface);padding:var(--pad);min-width:0;border:1px solid var(--line);border-radius:var(--radius)}
-.graph .results {grid-area:results} .graph .chart {grid-area:chart} .graph .inspection {grid-area:inspection} .graph .archive {grid-area:archive}
+.graph .results {grid-area:results} .graph .chart {grid-area:chart} .graph .inspection {grid-area:inspection} .graph .archive {grid-area:archive} .graph .release {grid-area:release}
 .graph h2 {font-size:17px;margin:0 0 10px} .graph .panel-head {display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between}
 .graph #counts,.graph #run-status {color:var(--sub);overflow-wrap:anywhere}
 .graph .scroll {overflow:auto;max-height:290px}
 .graph table {border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;min-width:360px}
 .graph th,.graph td {text-align:left;height:var(--row);padding:5px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
 .graph th {position:sticky;top:0;background:var(--surface);color:var(--sub)} .graph td:nth-child(n+2):nth-child(-n+4) {text-align:right}
-.graph .badge {color:var(--alert);font-size:.83em;padding:2px 4px;white-space:nowrap} .graph .badge:is([data-result="READY"],[data-result="APPROVED"]) {color:var(--accent)}
+.graph .badge {color:var(--alert);font-size:.83em;padding:2px 4px;white-space:nowrap} .graph .badge:is([data-result="READY"],[data-result="APPROVED"],[data-result="PUBLISHED"]) {color:var(--accent)}
 .graph #detail {margin:0;max-height:230px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font: .91em/1.5 var(--font-num)}
 .graph #history {list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:var(--gap);margin:0} .graph #history li {display:flex;align-items:center}
 .graph #review {margin-top:14px;max-width:580px} .graph textarea {display:block;width:100%;min-height:54px;cursor:text}
@@ -41,8 +41,8 @@ body.graph {margin:0;background:var(--bg);color:var(--ink);font:var(--size)/1.55
 .graph .stages {align-content:start; min-height:100%; border-left:3px solid var(--accent)}
 .graph .stages button {width:100%;text-align:left}
 .graph .chart {background-image:linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:24px 100%}
-@media(max-width:1120px) { .graph .desk {grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"mast mast" "source source" "stages stages" "kpis kpis" "results results" "chart inspection" "archive archive" "statusbar statusbar"} }
-@media(max-width:630px) { .graph .desk {grid-template-columns:minmax(0,1fr);grid-template-areas:"mast" "source" "stages" "kpis" "chart" "results" "inspection" "archive" "statusbar"} .graph .kpis {grid-template-columns:repeat(2,minmax(0,1fr))} .graph .chart #visual {display:block!important} .graph .stages button {width:auto} }
+@media(max-width:1120px) { .graph .desk {grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"mast mast" "source source" "stages stages" "kpis kpis" "results results" "chart inspection" "archive archive" "release release" "statusbar statusbar"} }
+@media(max-width:630px) { .graph .desk {grid-template-columns:minmax(0,1fr);grid-template-areas:"mast" "source" "stages" "kpis" "chart" "results" "inspection" "archive" "release" "statusbar"} .graph .kpis {grid-template-columns:repeat(2,minmax(0,1fr))} .graph .chart #visual {display:block!important} .graph .stages button {width:auto} }
 @media print { .graph .source,.graph .stages,.graph .archive,.graph .statusbar {display:none} .graph .desk {display:block} }
 
 .mark-piece {background:var(--accent);color:var(--surface);min-width:0}
@@ -51,3 +51,22 @@ body.graph {margin:0;background:var(--bg);color:var(--ink);font:var(--size)/1.55
 .segment-lane {display:grid; grid-template-columns:5em 1fr;align-items:center}
 .segment-lane .mark-piece {width:max(min(5em,100%),var(--part));padding:9px;color:var(--bg);border-radius:2px 24px 24px 2px}
 .segment-gap {border-left:4px solid var(--alert);padding:8px;margin-top:8px}
+
+.graph .supplement {display:flex;align-items:center;flex-wrap:wrap;gap:var(--gap);margin-bottom:10px}
+.graph .supplement input {position:absolute;width:1px;height:1px;opacity:0}
+.graph .supplement:has(input:focus-visible) .file {outline:2px solid var(--accent);outline-offset:3px}
+.graph #release-state {color:var(--sub);overflow-wrap:anywhere}
+.trial-board {max-height:320px}
+.trial-meta {color:var(--sub);margin:0 0 8px}
+.case-block {border:1px solid var(--line);border-radius:var(--radius);padding:10px;margin:0 0 8px}
+.case-block header {display:flex;gap:8px;align-items:center;justify-content:space-between}
+.case-block p {margin:6px 0}
+.cov {font:.9em var(--font-num);overflow-wrap:anywhere}
+.points {display:flex;flex-wrap:wrap;gap:4px}
+.point {font:.85em var(--font-num);border:1px solid var(--line);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.point[data-delta="gained"] {color:var(--accent);border-color:var(--accent)}
+.point[data-delta="open"] {color:var(--alert);border-color:var(--alert)}
+.warn {color:var(--alert)}
+#releases {list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:var(--gap);margin:0}
+#releases li {display:flex;align-items:center;gap:6px}
+.release-list-title {margin-top:12px}

@@ -42,6 +42,18 @@
   </form>
 </aside>
 {% endmacro %}
+{% macro release() %}
+<section class="panel release" aria-labelledby="release-title">
+  <div class="panel-head"><h2 id="release-title">补录试算与发布</h2><span id="release-state" role="status" aria-live="polite"></span></div>
+  <form id="supplement" class="supplement" aria-label="补录输入">
+    <label>补录样例 <select id="supplement-profile"><option value="supplement">首版补录</option><option value="supplement_fix">修复补录</option><option value="supplement_more">增量补录</option></select></label>
+    <label for="supplement-file" class="file">上传补录 CSV</label><input id="supplement-file" type="file" accept=".csv,text/csv"><span id="supplement-name" aria-live="polite"></span>
+    <button type="submit" class="action" id="publish" disabled>新建发布版本</button>
+  </form>
+  <div class="scroll trial-board" id="trial"></div>
+  <h2 class="release-list-title">发布版本</h2><ul id="releases"></ul>
+</section>
+{% endmacro %}
 {% macro status() %}
 <footer class="statusbar"><span id="notice" role="status" aria-live="polite">正在读取样例</span><a href="/examples/clean">下载样例 CSV</a></footer>
 {% endmacro %}

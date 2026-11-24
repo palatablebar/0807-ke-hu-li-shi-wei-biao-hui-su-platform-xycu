@@ -1,0 +1,9 @@
+record,case,kind,start_day,end_day,segment,cents,note
+100101,1001,version,0,10,1,0,月初基线版本
+100102,1001,version,10,20,2,0,月中调整版本
+100103,1001,transaction,3,0,0,120,上旬交易
+100104,1001,transaction,12,0,0,80,中旬交易
+100105,1001,expected,0,0,0,200,月底对账
+100201,1002,version,0,8,1,0,月初基线版本
+100202,1002,transaction,9,0,0,45,补录交易
+100203,1002,expected,0,0,0,45,月底对账
